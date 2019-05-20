@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Hero} from '../hero.class';
 import {HEROES} from '../heroes.mock';
+import { HeroService } from '../hero.service';
 
 // @Component is a decorator function that specifies the Angular metadata for the component.
 @Component({
@@ -15,19 +16,31 @@ export class HeroesComponent implements OnInit {
     name: 'Windstorm'
   };
 
-  heroes = HEROES;
+  heroes: Hero[];
 
   selectedHero: Hero;
 
-  constructor() { }
-
-  // lifecycle hook.
+  // When Angular creates a HeroesComponent, the Dependency Injection system sets the heroService parameter to the singleton instance of HeroService.
+  constructor(private heroService: HeroService) { }
+  //Reserve the constructor for simple initialization such as wiring constructor parameters to properties.
+  // The constructor shouldn't do anything. It certainly shouldn't call a function that makes HTTP requests to a remote server as a real data service would.
+  
+  // Instead, call getHeroes() inside the ngOnInit lifecycle hook and let Angular call ngOnInit at an appropriate time after constructing a HeroesComponent instance.
+  // lifecycle hook
   // Angular calls ngOnInit shortly after creating a component. It's a good place to put initialization logic.
   ngOnInit() {
+    this.getHeroes();
   }
 
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
+  }
+
+  // It could return a Promise. It could return an Observable.
+  // will return an Observable in part because it will eventually use the Angular HttpClient.get method to fetch the heroes and HttpClient.get() returns an Observable.
+  // Observable is one of the key classes in the RxJS library.
+  getHeroes(): void {
+    this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes);
   }
 
 }
