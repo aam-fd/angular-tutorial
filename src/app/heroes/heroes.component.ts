@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Hero} from '../hero.class';
-import {HEROES} from '../heroes.mock';
+import { Component, OnInit } from '@angular/core';
+
+import { Hero } from '../hero.class';
 import { HeroService } from '../hero.service';
 
 // @Component is a decorator function that specifies the Angular metadata for the component.
