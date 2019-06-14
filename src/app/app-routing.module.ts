@@ -7,18 +7,10 @@ import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 
 //The colon (:) in the path indicates that :id is a placeholder for a specific hero id.
 const routes: Routes = [
-  {
-    path: '', redirectTo: '/dashboard', pathMatch: 'full'
-  },
-  {
-    path: 'heroes', component: HeroesComponent
-  },
-  {
-    path: 'dashboard', component: DashboardComponent
-  },
-  {
-    path: 'detail/:id', component: HeroDetailComponent
-  }
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'detail/:id', component: HeroDetailComponent },
+  { path: 'heroes', component: HeroesComponent }
 ];
 
 // ng generate module app-routing --flat --module=app
@@ -26,12 +18,8 @@ const routes: Routes = [
 // --module = app tells the CLI to register it in the imports array of the AppModule.
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes)
-  ],
-  exports: [
-    RouterModule
-  ],
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [ RouterModule ],
   declarations: []
 })
 export class AppRoutingModule {
